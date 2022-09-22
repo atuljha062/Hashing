@@ -1,36 +1,45 @@
 // #include<bits/stdc++.h>
 #include<iostream>
-#include<unordered_set>
+#include<unordered_map>
 
 using namespace std;
 
+//find the highest and lowest frequency element
+
+pair<int,int> findHighAndLowFreq(int arr[], int n){
+    pair<int,int> ans;
+
+    unordered_map<int,int> m;
+
+    for(int i=0;i<n;i++){
+        m[arr[i]]++;
+    } 
+
+    int maxi=arr[0],mini=arr[0];
+    for(auto i: m){
+        if(i.second<m[mini]){
+            mini = i.first;
+        }
+        if(i.second>m[maxi]){
+            maxi = i.first;
+        }
+    }
+
+    ans.first = mini;
+    ans.second = maxi;
+
+    return ans;
+}
 
 int main(){
-    unordered_set<int> s;
 
-    s.insert(10);
-    s.insert(20);
-    s.insert(30);
+    int arr[] = {1,2,1,1,3,1,2};
 
-    if(s.find(10) == s.end()){
-        cout<<"Not Found"<<endl;
-    }else{
-        cout<<"Found"<<endl;
-    }
+    int n = sizeof(arr)/sizeof(arr[0]);
 
-    s.erase(20);
-    for(auto it = s.begin(); it != s.end(); it++){
-        cout<<(*it)<<" ";
-    }
+    pair<int,int> p = findHighAndLowFreq(arr,n);
 
-    if(s.count(20) == 0){
-        cout<<"Not Present"<<endl;
-    }else{
-        cout<<"Present";
-    }
-
-
-    s.clear();
-
-    cout<<s.size();
+    cout<<"Minimum Freq"<<p.first<<endl;
+    cout<<"MAximum Freq"<<p.second;
+    return 0;
 }
